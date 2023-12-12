@@ -1,6 +1,6 @@
 from typing import Optional
 import streamlit as st
-from hybridagi import UploadTool
+from hybridagi.tools import UploadTool
 from langchain.callbacks.manager import CallbackManagerForToolRun
 
 class StreamlitUploadTool(UploadTool):

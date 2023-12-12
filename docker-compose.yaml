@@ -32,5 +32,8 @@ services:
 
 volumes:
   archives:
+    driver: local
   documentation:
+    driver: local
   programs:
+    driver: local

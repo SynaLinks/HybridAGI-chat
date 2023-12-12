@@ -25,8 +25,6 @@ from hybridagi.toolkits import (
 
 from hybridagi.config import Config
 
-cfg = Config()
-
 ALLOWED_FILES_EXTENSIONS = [
     "txt",
     "py",
@@ -119,6 +117,7 @@ def display_chat_messages():
             st.write(message["content"])
 
 def display_starting_input():
+    cfg = st.session_state.config
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -172,7 +171,7 @@ def display_starting_input():
                         [bytes_data])
                     note += "- {filename}"
                 if uploaded_files:
-                    st.session_state.interpreter.update_note_tool(note)
+                    st.session_state.interpreter.tools_map["UpdateNote"].run(note)
         objective = st.text_area('Please, enter the objective, be as specific as possible (ensure that the programs have been loaded):')
         submitted = st.form_submit_button('Submit')
 
@@ -205,11 +204,17 @@ def init_config():
     if "config" not in st.session_state.keys():
         st.session_state.config = Config()
 
+    if st.session_state.config.openai_api_key == "your-openai-api-key" and \
+        st.session_state.config.private_mode == False:
+        st.warning("Please provide your OpenAI API key or switch to private mode")
+
 def clear_interpreter_session():
     if "clear_interpreter" in st.session_state.keys():
         del st.session_state["clear_interpreter"]
 
 def init_interpreter_session():
+    cfg = st.session_state.config
+
     if "interpreter" not in st.session_state.keys():
         ask_user = AskUserTool()
         speak = SpeakTool()
@@ -271,6 +276,8 @@ def clear_database_session():
         del st.session_state["trace_memory"]
 
 def init_database_session():
+    cfg = st.session_state.config
+
     if "filesystem_context" not in st.session_state.keys():
         st.session_state.filesystem_context = FileSystemContext()
 
@@ -303,14 +310,16 @@ def init_database_session():
         st.session_state.trace_memory.initialize()
 
 def clear_llms_session():
-    if "embeddings" not in st.session_state.keys():
+    if "embeddings" in st.session_state.keys():
         del st.session_state["embeddings"]
-    if "smart_llm" not in st.session_state.keys():
+    if "smart_llm" in st.session_state.keys():
         del st.session_state["smart_llm"]
-    if "fast_llm" not in st.session_state.keys():
+    if "fast_llm" in st.session_state.keys():
         del st.session_state["fast_llm"]
 
 def init_llms_session():
+    cfg = st.session_state.config
+
     if st.session_state.config.private_mode:
         from langchain.embeddings import GPT4AllEmbeddings
         from langchain.llms import HuggingFaceTextGenInference
@@ -321,7 +330,7 @@ def init_llms_session():
         
         if "smart_llm" not in st.session_state.keys():
             st.session_state.smart_llm = HuggingFaceTextGenInference(
-                    inference_server_url=cfg.local_smart_model_url,
+                    inference_server_url=cfg.local_smart_llm_model_url,
                     max_new_tokens=1024,
                     top_k=10,
                     top_p=0.95,
@@ -356,24 +365,20 @@ def init_llms_session():
             st.session_state.fast_llm = ChatOpenAI(
                 temperature = cfg.temperature,
                 model_name = cfg.fast_llm_model,
-                openai_api_key = cfg.openai_api_key)    
+                openai_api_key = cfg.openai_api_key)
 
 def display_settings():
+    save = st.button(
+        label="Apply settings",
+        help="Reset your session to apply your new settings")
+    if save:
+        clear_llms_session()
+        clear_database_session()
+        clear_interpreter_session()
+
     if "config" not in st.session_state.keys():
         st.session_state.config = Config()
     cfg = st.session_state.config
-
-    save = st.button(
-            label="Apply settings",
-            help="Reset your session to apply your new settings")
-    if save:
-        clear_llms_session()
-        init_llms_session()
-        clear_database_session()
-        init_database_session()
-        clear_interpreter_session()
-        init_interpreter_session()
-
     # Private mode toggle
     with st.expander("**LLM provider settings**"):
         st.session_state.config.private_mode = st.toggle(
@@ -382,13 +387,13 @@ def display_settings():
         )
         # OpenAI API key
         st.write("**OpenAI settings**")
-        if "OPENAI_API_KEY" not in os.environ:
-            os.environ["OPENAI_API_KEY"] = "your-openai-api-key"
-        st.session_state.config.openai_api_key = st.text_input(
+        openai_api_key = st.text_input(
             label="OpenAI API key",
             help="Used when private mode is disabled",
             type="password",
             value=st.session_state.config.openai_api_key)
+        if openai_api_key:
+            st.session_state.config.openai_api_key = openai_api_key
         st.session_state.config.temperature = st.slider(
             "Temperature",
             min_value=0.0,
@@ -488,13 +493,16 @@ def main():
 
     display_user_answer_input()
 
+    with tab2:
+        display_settings()
+
     with tab1:
         display_starting_input()
         display_chat_messages()
         run_agent()
 
-    with tab2:
-        display_settings()
+    
+    
 
 if __name__ == '__main__':
     main()
