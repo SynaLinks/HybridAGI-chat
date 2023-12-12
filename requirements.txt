@@ -1,0 +1,2 @@
+hybridagi@git+https://github.com/SynaLinks/HybridAGI
+streamlit

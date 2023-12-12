@@ -1,0 +1,7 @@
+[theme]
+base="dark"
+primaryColor="green"
+font="serif"
+
+[browser]
+gatherUsageStats = false
