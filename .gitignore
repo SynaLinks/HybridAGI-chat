@@ -2,8 +2,6 @@
 .env
 *.cypher
 programs/
-documentation/
-archives/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

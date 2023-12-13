@@ -29,11 +29,3 @@ services:
       - falkordb
     ports:
       - 8001:8001
-
-volumes:
-  archives:
-    driver: local
-  documentation:
-    driver: local
-  programs:
-    driver: local

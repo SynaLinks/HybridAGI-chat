@@ -13,7 +13,6 @@ from hybridagi import TraceMemory
 
 from tools.ask_user import AskUserTool
 from tools.speak import SpeakTool
-from tools.upload import UploadTool
 
 from langchain.tools import DuckDuckGoSearchRun
 
@@ -137,7 +136,7 @@ def display_starting_input():
         if load_documentation:
             with st.spinner("This may take a while..."):
                 st.session_state.filesystem.add_folders(
-                    folders=["documentation"],
+                    folders=[cfg.downloads_directory],
                     folder_names=["/home/user/Downloads/documentation"])
     
     with col3:
@@ -430,7 +429,11 @@ def display_settings():
             help="This is where the AI upload its work",
             value=st.session_state.config.downloads_directory,
         )
-
+        st.session_state.config.documentation_directory = st.text_input(
+            label="Documentation directory",
+            help="This is where the AI get its unstructured knowledge",
+            value=st.session_state.config.documentation_directory,
+        )
         st.session_state.config.library_directory = st.text_input(
             label="Library directory",
             help="This is where the AI get its Cypher programs",
@@ -500,9 +503,6 @@ def main():
         display_starting_input()
         display_chat_messages()
         run_agent()
-
-    
-    
 
 if __name__ == '__main__':
     main()
