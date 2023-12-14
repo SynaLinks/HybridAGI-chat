@@ -5,6 +5,8 @@ A simple chat UI made with Streamlit to deploy your custom Agents in seconds.
 
 Learn how to program [HybridAGI](https://github.com/SynaLinks/HybridAGI) using [Cypher](https://en.wikipedia.org/wiki/Cypher_(query_language)) to create controlled and explainable Agents!
 
+![The chat UI](img/chat-ui.png)
+
 ## Quickstart in 5 simple steps!
 
 #### What you need to start?
@@ -22,7 +24,7 @@ cd HybridAGI-chat
 
 ### Directory hierarchy
 
-Them you should open the repository folder in your favorite IDE ([VSCodium](https://vscodium.com/) with the Neo4J plugin is a good start). 
+Then you should open the repository folder in your favorite IDE ([VSCodium](https://vscodium.com/) with the Neo4J plugin is a good start). 
 
 ```
 📦HybridAGI-chat
