@@ -22,7 +22,7 @@ cd HybridAGI-chat
 
 ### Directory hierarchy
 
-First you should start by opening the repository folder in your favorite IDE ([VSCodium](https://vscodium.com/) with the Neo4J plugin is a good start). 
+Them you should open the repository folder in your favorite IDE ([VSCodium](https://vscodium.com/) with the Neo4J plugin is a good start). 
 
 ```
 📦HybridAGI-chat
