@@ -1,3 +1,7 @@
+*.cypher
+programs/
+documentation/
+archives/
 
 # Exclude log files
 *.log

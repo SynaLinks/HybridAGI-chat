@@ -4,4 +4,4 @@ WORKDIR HybridAGI-chat
 COPY ./requirements.txt ./requirements.txt
 RUN python3 -m pip install --upgrade pip && pip3 install -r requirements.txt
 COPY ./ ./
-CMD ["streamlit", "run", "Chat.py"]
+CMD ["streamlit", "run", "app.py"]
