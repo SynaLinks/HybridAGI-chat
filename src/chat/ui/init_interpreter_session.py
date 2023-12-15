@@ -1,8 +1,9 @@
 import streamlit as st
+import numpy as np
 from typing import List
 from langchain.tools import Tool
 from hybridagi import GraphProgramInterpreter
-from hybridagi import FileSystemToolKit
+from hybridagi.toolkits.filesystem_toolkit import FileSystemToolKit
 
 from ..tools.ask_user import AskUserTool
 from ..tools.speak import SpeakTool

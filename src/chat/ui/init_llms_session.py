@@ -33,18 +33,15 @@ def init_llms_session():
         from langchain.embeddings import OpenAIEmbeddings
 
         if "embeddings" not in st.session_state.keys():
-            st.session_state.embeddings = OpenAIEmbeddings(
-                openai_api_key = cfg.openai_api_key)
+            st.session_state.embeddings = OpenAIEmbeddings()
             st.session_state.embeddings_dim = 1536
 
         if "smart_llm" not in st.session_state.keys():
             st.session_state.smart_llm = ChatOpenAI(
                 temperature = cfg.temperature,
-                model_name = cfg.smart_llm_model,
-                openai_api_key = cfg.openai_api_key)
+                model_name = cfg.smart_llm_model)
 
         if "fast_llm" not in st.session_state.keys():
             st.session_state.fast_llm = ChatOpenAI(
                 temperature = cfg.temperature,
-                model_name = cfg.fast_llm_model,
-                openai_api_key = cfg.openai_api_key)
+                model_name = cfg.fast_llm_model)

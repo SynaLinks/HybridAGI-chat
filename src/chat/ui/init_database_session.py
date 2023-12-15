@@ -1,4 +1,5 @@
 import streamlit as st
+import numpy as np
 from hybridagi import FileSystemContext, FileSystem, ProgramMemory, TraceMemory
 
 def _normalize_vector(value):

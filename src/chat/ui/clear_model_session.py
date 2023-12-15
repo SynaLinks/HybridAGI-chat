@@ -11,6 +11,8 @@ def clear_model_session():
         del st.session_state["fast_llm"]
     if "filesystem" in st.session_state.keys():
         del st.session_state["filesystem"]
+    if "filesystem_context" in st.session_state.keys():
+        del st.session_state["filesystem_context"]
     if "program_memory" in st.session_state.keys():
         del st.session_state["program_memory"]
     if "trace_memory" in st.session_state.keys():

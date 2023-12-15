@@ -15,5 +15,8 @@ def run_agent():
                 try:
                     st.session_state.interpreter.run_step()
                 except Exception as e:
-                    st.warning(e)
+                    st.toast(f"Error occured: {e}")
+                    st.session_state.interpreter.stop()
+                    st.stop()
             clear_messages()
+            

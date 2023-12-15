@@ -27,7 +27,7 @@ class AskUserTool(BaseTool):
         else:
             st.session_state.messages.append({"role": "assistant", "content": query})
             st.session_state.request_answer = True
-            with st.chat_message("assistant"):
+            with st.chat_message("assistant", avatar="img/logo.png"):
                 st.write(query)
             st.stop()
         return "User answer: " + answer

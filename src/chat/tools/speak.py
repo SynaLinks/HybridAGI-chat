@@ -21,7 +21,7 @@ class SpeakTool(BaseTool):
         """Use the tool."""
         query = query.strip('"')
         st.session_state.messages.append({"role": "assistant", "content": query})
-        with st.chat_message("assistant"):
+        with st.chat_message("assistant", avatar = "img/logo.png"):
             st.write(query)
         return "Success"
 

@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from .clear_model_session import clear_model_session
 
@@ -23,7 +24,7 @@ def display_settings():
             type="password",
             value=st.session_state.config.openai_api_key)
         if openai_api_key:
-            st.session_state.config.openai_api_key = openai_api_key
+            os.environ["OPENAI_API_KEY"] = openai_api_key
         st.session_state.config.temperature = st.slider(
             "Temperature",
             min_value=0.0,

@@ -1,4 +1,5 @@
 import streamlit as st
+from .clear_messages import clear_messages
 
 ALLOWED_FILES_EXTENSIONS = [
     "txt",
