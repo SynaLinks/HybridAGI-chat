@@ -10,8 +10,7 @@ def run_agent():
         st.toast("Program stopped by the User!", icon="⚠️")
     else:
         if not st.session_state.interpreter.finished():
-            while not st.session_state.interpreter.finished() \
-                and st.session_state.answer == "":
+            while not st.session_state.interpreter.finished():
                 try:
                     st.session_state.interpreter.run_step()
                 except Exception as e:
@@ -19,4 +18,6 @@ def run_agent():
                     st.session_state.interpreter.stop()
                     st.stop()
             clear_messages()
+            st.toast("Program executed successfully")
+            
             

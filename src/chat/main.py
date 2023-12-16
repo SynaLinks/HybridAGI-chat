@@ -36,9 +36,10 @@ def main():
     with tab1:
         initialized = initialize()
         if initialized:
-            display_objective_input()
-            display_chat_messages()
-            run_agent()
+            with st.empty().container():
+                display_objective_input()
+                display_chat_messages()
+                run_agent()
         else:
             st.error("Please, update your settings and apply the changes before starting")
     with tab2:
