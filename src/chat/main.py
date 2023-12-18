@@ -23,6 +23,11 @@ def initialize() -> bool:
     return False
 
 def main():
+    st.set_page_config(
+        "Chat - HybridAGI",
+        page_icon = "img/favicon.ico",
+    )
+
     init_config()
     st.write("![Beta](https://img.shields.io/badge/Release-Beta-blue)\
  [![Docs](https://img.shields.io/badge/HybridAGI-Documentation-green)](https://synalinks.github.io/documentation/)\
@@ -36,11 +41,11 @@ def main():
     with tab1:
         initialized = initialize()
         if initialized:
-            with st.empty().container():
-                display_objective_input()
-                display_chat_messages()
-                run_agent()
+            display_objective_input()
+            display_chat_messages()
+            run_agent()
         else:
             st.error("Please, update your settings and apply the changes before starting")
     with tab2:
         display_settings()
+

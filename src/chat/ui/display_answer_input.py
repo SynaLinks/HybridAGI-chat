@@ -10,3 +10,5 @@ def display_answer_input():
             st.session_state.answer = response
         if response == "/stop":
             st.session_state.stop = True
+        st.rerun()
+        
