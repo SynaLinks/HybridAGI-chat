@@ -26,6 +26,7 @@ def main():
     st.set_page_config(
         "Chat - HybridAGI",
         page_icon = "img/favicon.ico",
+        layout = "wide",
     )
 
     init_config()

@@ -31,7 +31,7 @@ def display_objective_input():
     with col2:
         load_documentation = st.button(
             label='Load documentation',
-            help="Load the folder containing your documentation (see introduction tutorial)")
+            help="Load the folder containing your documentation")
         if load_documentation:
             with st.spinner("This may take a while..."):
                 st.session_state.filesystem.add_folders(
