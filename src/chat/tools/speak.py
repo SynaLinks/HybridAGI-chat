@@ -1,11 +1,9 @@
 """The speak tool. Copyright (C) 2023 SynaLinks. License: GPL-3.0"""
 
 import streamlit as st
-from colorama import Fore
-from colorama import Style
 from typing import Optional
 from langchain.callbacks.manager import AsyncCallbackManagerForToolRun, CallbackManagerForToolRun
-from langchain.tools import BaseTool, StructuredTool, Tool, tool
+from langchain.tools import BaseTool
 
 class SpeakTool(BaseTool):
     name = "Speak"
@@ -21,7 +19,7 @@ class SpeakTool(BaseTool):
         """Use the tool."""
         query = query.strip('"')
         st.session_state.messages.append({"role": "assistant", "content": query})
-        with st.chat_message("assistant", avatar = "img/logo.png"):
+        with st.chat_message("assistant", avatar = "src/img/logo.png"):
             st.write(query)
         return "Success"
 

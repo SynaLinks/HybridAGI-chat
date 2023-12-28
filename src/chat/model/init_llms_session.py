@@ -9,25 +9,28 @@ def init_llms_session():
         if "embeddings" not in st.session_state.keys():
             st.session_state.embeddings = GPT4AllEmbeddings()
             st.session_state.embeddings_dim = 384
-        
+
         if "smart_llm" not in st.session_state.keys():
             st.session_state.smart_llm = HuggingFaceTextGenInference(
-                    inference_server_url=cfg.local_smart_llm_model_url,
-                    max_new_tokens=1024,
-                    top_k=10,
-                    top_p=0.95,
-                    typical_p=0.95,
-                    temperature=0.01,
-                    repetition_penalty=1.03)
+                inference_server_url=cfg.local_smart_llm_model_url,
+                max_new_tokens=1024,
+                top_k=10,
+                top_p=0.95,
+                typical_p=0.95,
+                temperature=0.01,
+                repetition_penalty=1.03,
+            )
+
         if "fast_llm" not in st.session_state.keys():
             st.session_state.fast_llm = HuggingFaceTextGenInference(
-                    inference_server_url=cfg.local_fast_llm_model_url,
-                    max_new_tokens=1024,
-                    top_k=10,
-                    top_p=0.95,
-                    typical_p=0.95,
-                    temperature=0.01,
-                    repetition_penalty=1.03)
+                inference_server_url=cfg.local_fast_llm_model_url,
+                max_new_tokens=1024,
+                top_k=10,
+                top_p=0.95,
+                typical_p=0.95,
+                temperature=0.01,
+                repetition_penalty=1.03,
+            )
     else:
         from langchain.chat_models import ChatOpenAI
         from langchain.embeddings import OpenAIEmbeddings

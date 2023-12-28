@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 from typing import List
 from langchain.tools import Tool
 from hybridagi import GraphProgramInterpreter
@@ -77,6 +76,7 @@ def init_interpreter_session():
                 func=internet_search.run,
                 description=internet_search.description)
         ]
+        
         interpreter = GraphProgramInterpreter(
             program_memory = st.session_state.program_memory,
             trace_memory = st.session_state.trace_memory,

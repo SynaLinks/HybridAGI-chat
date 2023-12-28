@@ -1,15 +1,25 @@
 import os
 import streamlit as st
-from .clear_model_session import clear_model_session
 
-def display_settings():
+from ..model.clear_llms_session import clear_llms_session
+from ..model.init_llms_session import init_llms_session
+from ..database.clear_database_session import clear_database_session
+from ..database.init_database_session import init_database_session
+from ..interpreter.clear_interpreter_session import clear_interpreter_session
+from ..interpreter.init_interpreter_session import init_interpreter_session
+
+def display_settings_tab():
     save = st.button(
         label="Apply settings",
         help="Reset your session to apply your new settings")
     if save:
-        clear_model_session()
+        clear_llms_session()
+        init_llms_session()
+        clear_database_session()
+        init_database_session()
+        clear_interpreter_session()
+        init_interpreter_session()
     
-    cfg = st.session_state.config
     # Private mode toggle
     with st.expander("**LLM provider settings**"):
         st.session_state.config.private_mode = st.toggle(

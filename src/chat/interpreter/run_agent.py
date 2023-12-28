@@ -1,5 +1,5 @@
 import streamlit as st
-from .clear_messages import clear_messages
+from ..chat.clear_messages import clear_messages
 
 def run_agent():
     if "stop" not in st.session_state.keys():

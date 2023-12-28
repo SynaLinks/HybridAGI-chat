@@ -1,12 +1,9 @@
 """The ask user tool. Copyright (C) 2023 SynaLinks. License: GPL-3.0"""
 
 import streamlit as st
-from colorama import Fore
-from colorama import Style
 from typing import Optional
 from langchain.callbacks.manager import AsyncCallbackManagerForToolRun, CallbackManagerForToolRun
-from langchain.tools import BaseTool, StructuredTool, Tool, tool
-
+from langchain.tools import BaseTool
 class AskUserTool(BaseTool):
     name = "AskUser"
     description = \
@@ -27,7 +24,7 @@ class AskUserTool(BaseTool):
         else:
             st.session_state.messages.append({"role": "assistant", "content": query})
             st.session_state.request_answer = True
-            with st.chat_message("assistant", avatar="img/logo.png"):
+            with st.chat_message("assistant", avatar="src/img/logo.png"):
                 st.write(query)
             st.stop()
         return "User answer: " + answer
