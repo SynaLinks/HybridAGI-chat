@@ -2,11 +2,13 @@ import streamlit as st
 from typing import List
 from langchain.tools import Tool
 from hybridagi import GraphProgramInterpreter
-from hybridagi.toolkits.filesystem_toolkit import FileSystemToolKit
+from hybridagi.toolkits import (
+    FileSystemToolKit,
+    WebToolKit,
+)
 
 from ..tools.ask_user import AskUserTool
 from ..tools.speak import SpeakTool
-from langchain.tools import DuckDuckGoSearchRun
 
 def _pre_action_callback(
         purpose: str,
@@ -53,12 +55,15 @@ def init_interpreter_session():
     if "interpreter" not in st.session_state.keys():
         ask_user = AskUserTool()
         speak = SpeakTool()
-        internet_search = DuckDuckGoSearchRun()
 
         toolkits = [
             FileSystemToolKit(
                 filesystem = st.session_state.filesystem,
                 downloads_directory = cfg.downloads_directory,
+            ),
+            WebToolKit(
+                filesystem = st.session_state.filesystem,
+                user_agent = cfg.user_agent,
             )
         ]
 
@@ -71,10 +76,6 @@ def init_interpreter_session():
                 name=speak.name,
                 func=speak.run,
                 description=speak.description),
-            Tool(
-                name="InternetSearch",
-                func=internet_search.run,
-                description=internet_search.description)
         ]
         
         interpreter = GraphProgramInterpreter(
