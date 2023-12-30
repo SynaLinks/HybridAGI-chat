@@ -8,9 +8,7 @@ def display_chat_tab():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        disable_button = len(st.session_state.messages) == 0
-        new_chat = st.button("🔁 Reset Chat", disabled = disable_button)
-        if new_chat:
+        if st.button("🔁 Reset Chat"):
             st.session_state.interpreter.stop()
             clear_messages()
 

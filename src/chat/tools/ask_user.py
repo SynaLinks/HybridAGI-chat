@@ -22,7 +22,6 @@ class AskUserTool(BaseTool):
         if st.session_state.answer:
             answer = st.session_state.answer
             st.session_state.answer = ""
-            st.session_state.waiting_answer = True
         else:
             st.session_state.messages.append({"role": "assistant", "content": query})
             with st.chat_message("assistant", avatar="src/img/logo.png"):
