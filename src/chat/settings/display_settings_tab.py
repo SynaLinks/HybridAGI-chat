@@ -2,24 +2,28 @@ import os
 import streamlit as st
 
 from ..model.clear_llms_session import clear_llms_session
-from ..model.init_llms_session import init_llms_session
 from ..database.clear_database_session import clear_database_session
-from ..database.init_database_session import init_database_session
+from ..database.clear_context_session import clear_context_session
 from ..interpreter.clear_interpreter_session import clear_interpreter_session
+
+from ..model.init_llms_session import init_llms_session
+from ..database.init_database_session import init_database_session
+from ..database.init_context_session import init_context_session
 from ..interpreter.init_interpreter_session import init_interpreter_session
 
 def display_settings_tab():
-    save = st.button(
+    apply = st.button(
         label="Apply settings",
         help="Reset your session to apply your new settings")
-    if save:
+    if apply:
+        clear_context_session()
         clear_llms_session()
-        init_llms_session()
         clear_database_session()
-        init_database_session()
         clear_interpreter_session()
+        init_context_session()
+        init_llms_session()
+        init_database_session()
         init_interpreter_session()
-    
     # Private mode toggle
     with st.expander("**LLM provider settings**"):
         st.session_state.config.private_mode = st.toggle(
@@ -28,13 +32,15 @@ def display_settings_tab():
         )
         # OpenAI API key
         st.write("**OpenAI settings**")
-        openai_api_key = st.text_input(
+        if "OPENAI_API_KEY" in os.environ:
+            open_ai_key = os.environ["OPENAI_API_KEY"]
+        else:
+            open_ai_key = "your-openai-api-key"
+        os.environ["OPENAI_API_KEY"] = st.text_input(
             label="OpenAI API key",
             help="Used when private mode is disabled",
             type="password",
-            value=st.session_state.config.openai_api_key)
-        if openai_api_key:
-            os.environ["OPENAI_API_KEY"] = openai_api_key
+            value=open_ai_key)
         st.session_state.config.temperature = st.slider(
             "Temperature",
             min_value=0.0,

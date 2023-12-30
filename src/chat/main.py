@@ -5,6 +5,7 @@ from .settings.display_settings_tab import display_settings_tab
 
 from .chat.display_answer_input import display_answer_input
 from .chat.display_chat_tab import display_chat_tab
+from .chat.init_chat_messages import init_chat_messages
 
 from .database.display_database_panel import display_database_panel
 from .database.init_database_session import init_database_session
@@ -24,6 +25,7 @@ def main():
  [![Docs](https://img.shields.io/badge/Database-Inspection-red)](http://localhost:8001)")
 
     init_config()
+    init_chat_messages()
     init_context_session()
     init_llms_session()
     init_database_session()
@@ -31,11 +33,13 @@ def main():
 
     display_database_panel()
 
+    display_answer_input()
+
     tab1, tab2 = st.tabs(["Chat", "Settings"])
     with tab1:
         display_chat_tab()
 
     with tab2:
         display_settings_tab()
-
-    display_answer_input()
+    
+    

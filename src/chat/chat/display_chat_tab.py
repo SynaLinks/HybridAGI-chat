@@ -1,32 +1,29 @@
 import streamlit as st
-from ..database.init_database_session import init_database_session
-from ..interpreter.init_interpreter_session import init_interpreter_session
-from ..model.init_llms_session import init_llms_session
-
-from .init_chat_messages import init_chat_messages
-from .display_objective_input import display_objective_input
 from .display_chat_messages import display_chat_messages
-
+from .clear_messages import clear_messages
 from ..interpreter.run_agent import run_agent
-
-def initialize_chat() -> bool:
-    """Initialize the chat tab"""
-    init_chat_messages()
-    init_llms_session()
-    success = init_database_session()
-    if success:
-        init_interpreter_session()
-        return True
-    return False
+from .display_objective_input import display_objective_input
 
 def display_chat_tab():
-    initialized = initialize_chat()
-    if initialized:
-        display_objective_input()
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        disable_button = len(st.session_state.messages) == 0
+        new_chat = st.button("🔁 Reset Chat", disabled = disable_button)
+        if new_chat:
+            st.session_state.interpreter.stop()
+            clear_messages()
+
+    pause = False
+    with col2:
+        pause = st.toggle("⏯️ Pause/Resume")
+
+    with col3:
+        if st.button("🛑 Stop"):
+            st.session_state.interpreter.stop()
+    
+    display_objective_input()
+    with st.empty().container():
         display_chat_messages()
-        run_agent()
-    else:
-        st.error(
-            "Please, update your settings and apply the changes "+
-            "before starting to chat with the model"
-        )
+        if not pause:
+            run_agent()

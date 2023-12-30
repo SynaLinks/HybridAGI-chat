@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 
 def init_llms_session():
@@ -36,15 +37,21 @@ def init_llms_session():
         from langchain.embeddings import OpenAIEmbeddings
 
         if "embeddings" not in st.session_state.keys():
-            st.session_state.embeddings = OpenAIEmbeddings()
+            st.session_state.embeddings = OpenAIEmbeddings(
+                openai_api_key = os.getenv("OPENAI_API_KEY")
+            )
             st.session_state.embeddings_dim = 1536
 
         if "smart_llm" not in st.session_state.keys():
             st.session_state.smart_llm = ChatOpenAI(
                 temperature = cfg.temperature,
-                model_name = cfg.smart_llm_model)
+                model_name = cfg.smart_llm_model,
+                openai_api_key = os.getenv("OPENAI_API_KEY")
+            )
 
         if "fast_llm" not in st.session_state.keys():
             st.session_state.fast_llm = ChatOpenAI(
                 temperature = cfg.temperature,
-                model_name = cfg.fast_llm_model)
+                model_name = cfg.fast_llm_model,
+                openai_api_key = os.getenv("OPENAI_API_KEY"),
+            )

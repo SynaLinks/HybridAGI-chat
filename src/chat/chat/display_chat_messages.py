@@ -7,5 +7,5 @@ def display_chat_messages():
             with st.chat_message(message["role"], avatar="src/img/logo.png"):
                 st.write(message["content"])
         else:
-            with st.chat_message(message["role"]):
+            with st.chat_message(message["role"], avatar="🧑‍💻"):
                 st.write(message["content"])
