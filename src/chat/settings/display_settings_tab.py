@@ -31,16 +31,16 @@ def display_settings_tab():
             help="Use Text Generation endpoint instead of OpenAI",
         )
         # OpenAI API key
-        st.write("**OpenAI settings**")
-        if "OPENAI_API_KEY" in os.environ:
-            open_ai_key = os.environ["OPENAI_API_KEY"]
+        st.write("**TogetherAI settings**")
+        if "TOGETHER_API_KEY" in os.environ:
+            llm_provider_api_key = os.environ["TOGETHER_API_KEY"]
         else:
-            open_ai_key = "your-openai-api-key"
-        os.environ["OPENAI_API_KEY"] = st.text_input(
-            label="OpenAI API key",
-            help="Used when private mode is disabled",
+            llm_provider_api_key = "your-api-key"
+        os.environ["TOGETHER_API_KEY"] = st.text_input(
+            label="TogetherAI API key",
+            help="The TogetherAI API key",
             type="password",
-            value=open_ai_key)
+            value=llm_provider_api_key)
         st.session_state.config.temperature = st.slider(
             "Temperature",
             min_value=0.0,
