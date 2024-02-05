@@ -9,4 +9,4 @@ def init_config():
         os.environ["TOGETHER_API_KEY"] = "your-api-key"
     if os.environ["TOGETHER_API_KEY"] == "your-api-key" and \
         not st.session_state.config.private_mode:
-        st.warning("Please provide your [TogetherAI](https://www.together.ai/) API key in the settings tab (you can find one here: https://api.together.xyz/settings/api-keys)")
+        st.warning("Please provide your [TogetherAI](https://www.together.ai/) API key in the settings tab (you can find one [here](https://api.together.xyz/settings/api-keys))")

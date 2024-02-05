@@ -41,11 +41,44 @@ def display_settings_tab():
             help="The TogetherAI API key",
             type="password",
             value=llm_provider_api_key)
+
+        st.session_state.config.embeddings_model = st.text_input(
+            label="Text Embedding Model",
+            value=st.session_state.config.embeddings_model
+        )
+
+        st.session_state.config.dim = st.slider(
+            "Embedding Dimension",
+            min_value=0,
+            max_value=3000,
+            value=st.session_state.config.embeddings_dim,
+        )
+
         st.session_state.config.temperature = st.slider(
             "Temperature",
             min_value=0.0,
             max_value=1.0,
-            value=0.5,
+            value=st.session_state.config.temperature,
+        )
+
+        st.session_state.config.top_p = st.slider(
+            "Top P",
+            min_value=0.0,
+            max_value=1.0,
+            value=st.session_state.config.top_p,
+        )
+        st.session_state.config.top_k = st.slider(
+            "Top K",
+            min_value=1,
+            max_value=200,
+            value=st.session_state.config.top_k,
+        )
+
+        st.session_state.config.repetition_penalty = st.slider(
+            "Repetition Penalty",
+            min_value=0.0,
+            max_value=5.0,
+            value=st.session_state.config.repetition_penalty,
         )
         st.session_state.config.smart_llm_model = st.text_input(
             label="Smart LLM model",
