@@ -11,7 +11,7 @@ Learn how to program [HybridAGI](https://github.com/SynaLinks/HybridAGI) using [
 
 #### What you need to start?
 
-- A TogetherAI API key (get one at https://api.together.xyz/)
+- A MistralAI API key (get one at https://mistral.ai/)
 - [Git](https://git-scm.com/downloads) and [Docker](https://www.docker.com/products/docker-desktop/)
 
 ### Installation
@@ -25,7 +25,7 @@ cd HybridAGI-chat
 
 ### Directory hierarchy
 
-Then you should open the repository folder in your favorite IDE ([VSCodium](https://vscodium.com/) with the Neo4J plugin is a good start). 
+Then you should open the repository folder in your favorite IDE ([VSCodium](https://vscodium.com/) with the Neo4J plugin is a good start).
 
 ```shell
 📦HybridAGI-chat

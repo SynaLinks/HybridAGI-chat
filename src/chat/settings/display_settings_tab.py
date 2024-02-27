@@ -30,15 +30,14 @@ def display_settings_tab():
             label="Use Private Mode",
             help="Use Text Generation endpoint instead of OpenAI",
         )
-        # OpenAI API key
-        st.write("**TogetherAI settings**")
-        if "TOGETHER_API_KEY" in os.environ:
-            llm_provider_api_key = os.environ["TOGETHER_API_KEY"]
+        st.write("**MistralAI settings**")
+        if "MISTRAL_API_KEY" in os.environ:
+            llm_provider_api_key = os.environ["MISTRAL_API_KEY"]
         else:
             llm_provider_api_key = "your-api-key"
-        os.environ["TOGETHER_API_KEY"] = st.text_input(
-            label="TogetherAI API key",
-            help="The TogetherAI API key",
+        os.environ["MISTRAL_API_KEY"] = st.text_input(
+            label="MistralAI API key",
+            help="The MistralAI API key",
             type="password",
             value=llm_provider_api_key)
 
@@ -67,19 +66,19 @@ def display_settings_tab():
             max_value=1.0,
             value=st.session_state.config.top_p,
         )
-        st.session_state.config.top_k = st.slider(
-            "Top K",
-            min_value=1,
-            max_value=200,
-            value=st.session_state.config.top_k,
-        )
+        # st.session_state.config.top_k = st.slider(
+        #     "Top K",
+        #     min_value=1,
+        #     max_value=200,
+        #     value=st.session_state.config.top_k,
+        # )
 
-        st.session_state.config.repetition_penalty = st.slider(
-            "Repetition Penalty",
-            min_value=0.0,
-            max_value=5.0,
-            value=st.session_state.config.repetition_penalty,
-        )
+        # st.session_state.config.repetition_penalty = st.slider(
+        #     "Repetition Penalty",
+        #     min_value=0.0,
+        #     max_value=5.0,
+        #     value=st.session_state.config.repetition_penalty,
+        # )
         st.session_state.config.smart_llm_model = st.text_input(
             label="Smart LLM model",
             value=st.session_state.config.smart_llm_model)
