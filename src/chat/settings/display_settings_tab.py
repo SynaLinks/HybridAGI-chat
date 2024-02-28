@@ -86,16 +86,16 @@ def display_settings_tab():
             label="Fast LLM model",
             value=st.session_state.config.fast_llm_model)
 
-        st.write("**Text Generation settings**")
-        # Local model URL
-        st.session_state.config.local_smart_llm_model_url = st.text_input(
-            label="Local smart LLM model URL",
-            help="Used when private mode is enabled",
-            value=st.session_state.config.local_smart_llm_model_url)
-        st.session_state.config.local_fast_llm_model_url = st.text_input(
-            label="Local fast LLM model URL",
-            help="Used when private mode is enabled",
-            value=st.session_state.config.local_fast_llm_model_url)
+        # st.write("**Text Generation settings**")
+        # # Local model URL
+        # st.session_state.config.local_smart_llm_model_url = st.text_input(
+        #     label="Local smart LLM model URL",
+        #     help="Used when private mode is enabled",
+        #     value=st.session_state.config.local_smart_llm_model_url)
+        # st.session_state.config.local_fast_llm_model_url = st.text_input(
+        #     label="Local fast LLM model URL",
+        #     help="Used when private mode is enabled",
+        #     value=st.session_state.config.local_fast_llm_model_url)
     # Redis URL
     with st.expander("**Database settings**"):
         st.session_state.config.redis_url = st.text_input(
