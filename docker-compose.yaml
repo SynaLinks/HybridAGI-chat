@@ -1,31 +1,32 @@
 version: '3'
 services:
   hybrid-agi-chat:
-    image: hybrid-agi-chat:0.0.0
+    image: hybrid-agi-chat
     working_dir: /HybridAGI-chat
     build:
       context: .
       dockerfile: Dockerfile
     container_name: hybrid-agi-chat
+    env_file:
+      - .env
     depends_on:
-      - falkordb
-      - redis-insight
+      - hybrid-agi-db
+      - hybrid-agi-db-browser
     ports:
-      - 8501:8501
+      - 8000:8000
     volumes:
-      - ./archives:/HybridAGI-chat/archives
-      - ./documentation:/HybridAGI-chat/documentation
-      - ./programs:/HybridAGI-chat/programs
-  falkordb:
-    image: falkordb/falkordb:latest
-    container_name: falkordb
+      - ./archives:/HybridAGI/archives
+      - ./documentation:/HybridAGI/documentation
+      - ./programs:/HybridAGI/programs
+  hybrid-agi-db:
+    image: falkordb/falkordb:edge
+    container_name: hybrid-agi-db
     ports:
       - 6379:6379
-      - 7687:7687
-  redis-insight:
+  hybrid-agi-db-browser:
     image: redislabs/redisinsight:latest
-    container_name: redis-insight
+    container_name: hybrid-agi-db-browser
     depends_on:
-      - falkordb
+      - hybrid-agi-db
     ports:
       - 8001:8001
